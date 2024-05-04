@@ -1,0 +1,41 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <title>PDF to Audio</title>
+  <!-- <script src="https://unpkg.com/ttsreader-plugin/main.js" defer></script> -->
+</head>
+<body>
+  <h1>PDF to Audio Project <a href="/pdf"><button>Upload PDF</button></a></h1>
+  <button id="loadPdfButton" style="opacity: 0"></button>
+  <br>
+  <p id="responseTextarea">
+
+  </p>
+
+  <script>
+    $(document).ready(function() {
+      $('#loadPdfButton').click(function() {
+        $.ajax({
+          url: '/payload', // Update with your server URL
+          type: 'GET',
+          success: function(response) {
+            $('#responseTextarea').append(response);
+            $.getScript("https://unpkg.com/ttsreader-plugin/main.js");
+          },
+          error: function(xhr, status, error) {
+            console.error(error);
+            alert('Error loading PDF response');
+          }
+        });
+      });
+      $('#loadPdfButton').click();
+    });
+  </script>
+</body>
+</html>
