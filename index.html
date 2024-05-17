@@ -128,6 +128,9 @@ width: 16px;
 
   <script>
     $(document).ready(function() {
+
+
+
       $('#loadPdfButton').click(function() {
         $.ajax({
           url: '/payload', // Update with your server URL
@@ -152,6 +155,30 @@ width: 16px;
 convertToParagraphs('responseTextarea');
 
             // $.getScript("https://unpkg.com/ttsreader-plugin/main.js");
+
+
+            talkify.config.remoteService.host = 'https://talkify.net';
+talkify.config.remoteService.apiKey = '2e4c4ce0-594c-4c33-9cec-fadefd44a2f5';
+
+talkify.config.ui.audioControls.enabled = true; //<-- Disable to get the browser built in audio controls
+talkify.config.ui.audioControls.voicepicker.enabled = true;
+talkify.config.ui.audioControls.container = document.getElementById("player-and-voices");
+  
+$(document).ready(function() {
+  var player = new talkify.TtsPlayer()
+    .enableTextHighlighting()
+    .forceVoice({name: "Zira"});
+
+  var playlist = new talkify.playlist()
+    .begin()
+    .usingPlayer(player)
+    .withRootSelector('#root')
+    .withTextInteraction()
+    .build();
+  
+  playlist.play();
+});
+
           },
           error: function(xhr, status, error) {
             console.error(error);
@@ -163,7 +190,7 @@ convertToParagraphs('responseTextarea');
     });
   </script>
   
-  <script src="https://unpkg.com/ttsreader-plugin/main.js" defer></script>
+  <!-- <script src="https://unpkg.com/ttsreader-plugin/main.js" defer></script> -->
 
 </body>
 </html>
